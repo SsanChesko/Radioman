@@ -90,8 +90,8 @@ class RadioTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource (resources = "/data.csv")
-    void shouldNextStation (int currentStation, int expected){
+    @CsvFileSource(resources = "/data.csv")
+    void shouldNextStation(int currentStation, int expected) {
 
         Radio rad = new Radio();
 
@@ -142,8 +142,8 @@ class RadioTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource (numLinesToSkip = 10, resources = "/data1.csv")
-    public void shouldPreviousStation(int currentStation, int expected){
+    @CsvFileSource(numLinesToSkip = 10, resources = "/data1.csv")
+    public void shouldPreviousStation(int currentStation, int expected) {
 
         Radio rad = new Radio();
         rad.previousStation(currentStation);
