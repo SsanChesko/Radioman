@@ -101,6 +101,18 @@ class RadioTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    void shouldNextStationUnderLimit() { // можно впихнуть параметризованный
+
+        Radio rad = new Radio();
+
+        rad.nextStation(-1);
+        int expected = 0;
+
+        int actual = rad.getCurrentStation();
+
+        assertEquals(expected, actual);
+    }
 
     @Test
     void shouldNextStationMin() { // можно впихнуть параметризованный
@@ -148,6 +160,19 @@ class RadioTest {
         Radio rad = new Radio();
         rad.previousStation(currentStation);
 
+        int actual = rad.getCurrentStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldPreviousStationUnder() { // можно парам
+
+        Radio rad = new Radio();
+
+        rad.previousStation(-3);
+
+        int expected = 0;
         int actual = rad.getCurrentStation();
 
         assertEquals(expected, actual);
@@ -234,6 +259,18 @@ class RadioTest {
         Radio rad = new Radio();
 
         rad.decreaseVolume(0);
+        int expected = 0;
+        int actual = rad.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldDecreaseVolumeOverLimit() {
+
+        Radio rad = new Radio();
+
+        rad.decreaseVolume(12);
         int expected = 0;
         int actual = rad.getCurrentVolume();
 
