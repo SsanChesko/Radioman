@@ -7,17 +7,18 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
-    /* @ParameterizedTest
-     @CsvSource (value = {"0, 0", "5, 5", "9, 9"})
-      void shouldSetCurrentStationParam (int currentStation, int expected) {
+    @ParameterizedTest
+    @CsvSource(value = {"0, 0", "1, 1", "2, 2", "3, 3", "4, 4", "5, 5", "6, 6", "7, 7", "8, 8", "9, 9"})
+    void shouldSetCurrentStationParam(int currentStation, int expected) {
 
-         Radio rad = new Radio();
+        Radio rad = new Radio();
+        rad.setCurrentStation(currentStation);
 
-         int actual = rad.getCurrentStation();
+        int actual = rad.getCurrentStation();
 
-         assertEquals(expected, actual);
-     }
-*/
+        assertEquals(expected, actual);
+    }
+
     @Test
     void shouldSetCurrentStationLow() {
 
@@ -88,6 +89,19 @@ class RadioTest {
 
     }
 
+    @ParameterizedTest
+    @CsvFileSource (resources = "/data.csv")
+    void shouldNextStation (int currentStation, int expected){
+
+        Radio rad = new Radio();
+
+        rad.nextStation(currentStation);
+        int actual = rad.getCurrentStation();
+
+        assertEquals(expected, actual);
+    }
+
+
     @Test
     void shouldNextStationMin() { // можно впихнуть параметризованный
 
@@ -106,8 +120,8 @@ class RadioTest {
 
         Radio rad = new Radio();
 
-        rad.nextStation(6);
-        int expected = 7;
+        rad.nextStation(8);
+        int expected = 9;
 
         int actual = rad.getCurrentStation();
 
@@ -121,6 +135,18 @@ class RadioTest {
 
         rad.nextStation(9);
         int expected = 0;
+
+        int actual = rad.getCurrentStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource (numLinesToSkip = 10, resources = "/data1.csv")
+    public void shouldPreviousStation(int currentStation, int expected){
+
+        Radio rad = new Radio();
+        rad.previousStation(currentStation);
 
         int actual = rad.getCurrentStation();
 
