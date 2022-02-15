@@ -7,7 +7,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
-
     @ParameterizedTest
     @CsvSource(value = {"0, 0", "1, 1", "2, 2", "3, 3", "4, 4", "5, 5", "6, 6", "7, 7", "8, 8", "9, 9"})
     void shouldSetCurrentStationParam(int currentStation, int expected) {
@@ -99,14 +98,14 @@ class RadioTest {
         Radio rad = new Radio();
 
         rad.setSumStation(rad.getSumStation());
-        rad.setCurrentStation(5); // rad.currentStation = 10;
+        rad.setCurrentStation(5);
         int expected = 5;
 
         int actual = rad.getCurrentStation();
 
         assertEquals(expected, actual);
 
-        Radio rad1 = new Radio(12);
+        Radio rad1 = new Radio(0,0, 12);
 
         rad1.setSumStation(rad1.getSumStation());
         rad1.setCurrentStation(11);

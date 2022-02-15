@@ -1,9 +1,14 @@
+import lombok.*;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Radio {
     private int currentStation;
     private int currentVolume;
     private int sumStation = 10;
 
-    public Radio(int sumStation) {
+   /* public Radio(int sumStation) {
         this.sumStation = sumStation;
     }
 
@@ -86,6 +91,8 @@ public class Radio {
             this.currentVolume = 0;
         }
     }
+
+    */
 }
 
 
