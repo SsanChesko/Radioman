@@ -1,30 +1,24 @@
 import lombok.*;
-@Getter
-@Setter
-@AllArgsConstructor
+
 @NoArgsConstructor
+@AllArgsConstructor
 public class Radio {
+    @Getter
+    @Setter
     private int currentStation;
+    @Getter
+    @Setter
     private int currentVolume;
-    private int sumStation = 10;
+    @Getter
+    @Setter
+    private int sumStation;
 
-   /* public Radio(int sumStation) {
-        this.sumStation = sumStation;
-    }
+    public Radio (int sumStation) {
 
-    public Radio() {
     }
 
     public int getSumStation() {
         return sumStation - 1;
-    }
-
-    public void setSumStation(int sumStation) {
-        this.sumStation = sumStation;
-    }
-
-    public int getCurrentStation() {
-        return currentStation;
     }
 
     public void setCurrentStation(int currentStation) {
@@ -37,26 +31,24 @@ public class Radio {
         this.currentStation = currentStation;
     }
 
-    public void nextStation(int currentStation) {
-        if (currentStation < 0) {
-            return;
-        }
+    public void nextStation() {
         if (currentStation < sumStation) {
             this.currentStation = currentStation + 1;
+            return;
         }
         if (currentStation == sumStation) {
             this.currentStation = 0;
         }
     }
 
-    public void previousStation(int currentStation) {
-        if (currentStation < 0)
-            return;
-        if (currentStation < sumStation) {
-            this.currentStation = currentStation - 1;
-        }
+    public void previousStation() {
         if (currentStation == 0) {
             this.currentStation = sumStation;
+            return;
+        }
+        if (currentStation < sumStation) {
+            this.currentStation = currentStation - 1;
+            return;
         }
         if (currentStation == sumStation) {
             this.currentStation = currentStation - 1;
@@ -64,35 +56,36 @@ public class Radio {
 
     }
 
-
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
-
-    public void increaseVolume(int currentVolume) {
+    public void setCurrentVolume(int currentVolume) {
         if (currentVolume < 0) {
             return;
         }
+        if (currentVolume > 100) {
+            return;
+        }
+        this.currentVolume = currentVolume;
+    }
+
+    public void increaseVolume() {
         if (currentVolume < 100) {
             this.currentVolume = currentVolume + 1;
+            return;
         }
         if (currentVolume == 100) {
             this.currentVolume = 100;
         }
     }
 
-    public void decreaseVolume(int currentVolume) {
-        if (currentVolume > 100)
-            return;
-        if (currentVolume >= 100) {
-            this.currentVolume = currentVolume - 1;
-        }
+    public void decreaseVolume() {
         if (currentVolume == 0) {
             this.currentVolume = 0;
+            return;
         }
-    }
+        if (currentVolume <= 100) {
+            this.currentVolume = currentVolume - 1;
+        }
 
-    */
+    }
 }
 
 

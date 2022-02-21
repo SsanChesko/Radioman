@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
+
     @ParameterizedTest
     @CsvSource(value = {"0, 0", "1, 1", "2, 2", "3, 3", "4, 4", "5, 5", "6, 6", "7, 7", "8, 8", "9, 9"})
     void shouldSetCurrentStationParam(int currentStation, int expected) {
@@ -98,14 +99,14 @@ class RadioTest {
         Radio rad = new Radio();
 
         rad.setSumStation(rad.getSumStation());
-        rad.setCurrentStation(5);
+        rad.setCurrentStation(5); // rad.currentStation = 10;
         int expected = 5;
 
         int actual = rad.getCurrentStation();
 
         assertEquals(expected, actual);
 
-        Radio rad1 = new Radio(0,0, 12);
+        Radio rad1 = new Radio(12);
 
         rad1.setSumStation(rad1.getSumStation());
         rad1.setCurrentStation(11);
@@ -141,42 +142,47 @@ class RadioTest {
     void shouldNextStation(int currentStation, int expected) {
 
         Radio rad = new Radio();
+        rad.setCurrentStation(currentStation);
         rad.setSumStation(rad.getSumStation());
-        rad.nextStation(currentStation);
+        rad.nextStation();
         int actual = rad.getCurrentStation();
 
         assertEquals(expected, actual);
 
         Radio rad1 = new Radio(10);
+        rad1.setCurrentStation(currentStation);
         rad1.setSumStation(rad1.getSumStation());
-        rad1.nextStation(9);
-        assertEquals(0, rad1.getCurrentStation());
+        rad1.nextStation();
+        assertEquals(expected, rad1.getCurrentStation());
     }
 
     @Test
     void shouldNextStationUnderLimit() { // можно впихнуть параметризованный
 
         Radio rad = new Radio();
+        rad.setCurrentStation(-1);
         rad.setSumStation(rad.getSumStation());
-        rad.nextStation(-1);
-        int expected = 0;
+        rad.nextStation();
+        int expected = 1;
 
         int actual = rad.getCurrentStation();
 
         assertEquals(expected, actual);
 
         Radio rad1 = new Radio(15);
+        rad1.setCurrentStation(-2);
         rad1.setSumStation(rad1.getSumStation());
-        rad1.nextStation(-2);
-        assertEquals(0, rad1.getCurrentStation());
+        rad1.nextStation();
+        assertEquals(1, rad1.getCurrentStation());
     }
 
     @Test
     void shouldNextStationMin() { // можно впихнуть параметризованный
 
         Radio rad = new Radio();
+        rad.setCurrentStation(0);
         rad.setSumStation(rad.getSumStation());
-        rad.nextStation(0);
+        rad.nextStation();
         int expected = 1;
 
         int actual = rad.getCurrentStation();
@@ -184,8 +190,9 @@ class RadioTest {
         assertEquals(expected, actual);
 
         Radio rad1 = new Radio(212);
+        rad1.setCurrentStation(210);
         rad1.setSumStation(rad1.getSumStation());
-        rad1.nextStation(210);
+        rad1.nextStation();
         assertEquals(211, rad1.getCurrentStation());
     }
 
@@ -193,27 +200,9 @@ class RadioTest {
     void shouldNextStationAvr() { // можно впихнуть параметризованный
 
         Radio rad = new Radio();
+        rad.setCurrentStation(9);
         rad.setSumStation(rad.getSumStation());
-        rad.nextStation(8);
-        int expected = 9;
-
-        int actual = rad.getCurrentStation();
-
-        assertEquals(expected, actual);
-
-        Radio rad1 = new Radio(15);
-        rad1.setSumStation(rad1.getSumStation());
-        rad1.nextStation(12);
-        assertEquals(13, rad1.getCurrentStation());
-
-    }
-
-    @Test
-    void shouldNextStationMax() { // можно впихнуть параметризованный
-
-        Radio rad = new Radio();
-        rad.setSumStation(rad.getSumStation());
-        rad.nextStation(9);
+        rad.nextStation();
         int expected = 0;
 
         int actual = rad.getCurrentStation();
@@ -221,9 +210,11 @@ class RadioTest {
         assertEquals(expected, actual);
 
         Radio rad1 = new Radio(15);
+        rad1.setCurrentStation(14);
         rad1.setSumStation(rad1.getSumStation());
-        rad1.nextStation(14);
+        rad1.nextStation();
         assertEquals(0, rad1.getCurrentStation());
+
     }
 
     @ParameterizedTest
@@ -231,16 +222,18 @@ class RadioTest {
     public void shouldPreviousStation(int currentStation, int expected) {
 
         Radio rad = new Radio();
+        rad.setCurrentStation(currentStation);
         rad.setSumStation(rad.getSumStation());
-        rad.previousStation(currentStation);
+        rad.previousStation();
 
         int actual = rad.getCurrentStation();
 
         assertEquals(expected, actual);
 
         Radio rad1 = new Radio(10);
+        rad1.setCurrentStation(currentStation);
         rad1.setSumStation(rad1.getSumStation());
-        rad1.previousStation(currentStation);
+        rad1.previousStation();
 
         assertEquals(expected, rad1.getCurrentStation());
     }
@@ -249,26 +242,9 @@ class RadioTest {
     void shouldPreviousStationUnder() { // можно парам
 
         Radio rad = new Radio();
+        rad.setCurrentStation(-3);
         rad.setSumStation(rad.getSumStation());
-        rad.previousStation(-3);
-
-        int expected = 0;
-        int actual = rad.getCurrentStation();
-
-        assertEquals(expected, actual);
-
-        Radio rad1 = new Radio(20);
-        rad1.setSumStation(rad1.getSumStation());
-        rad1.previousStation(-2);
-        assertEquals(0, rad1.getCurrentStation());
-    }
-
-    @Test
-    void shouldPreviousStationMin() { // можно парам
-
-        Radio rad = new Radio();
-        rad.setSumStation(rad.getSumStation());
-        rad.previousStation(0);
+        rad.previousStation();
 
         int expected = 9;
         int actual = rad.getCurrentStation();
@@ -276,8 +252,29 @@ class RadioTest {
         assertEquals(expected, actual);
 
         Radio rad1 = new Radio(20);
+        rad1.setCurrentStation(-2);
         rad1.setSumStation(rad1.getSumStation());
-        rad1.previousStation(0);
+        rad1.previousStation();
+        assertEquals(19, rad1.getCurrentStation());
+    }
+
+    @Test
+    void shouldPreviousStationMin() { // можно парам
+
+        Radio rad = new Radio();
+        rad.setCurrentStation(0);
+        rad.setSumStation(rad.getSumStation());
+        rad.previousStation();
+
+        int expected = 9;
+        int actual = rad.getCurrentStation();
+
+        assertEquals(expected, actual);
+
+        Radio rad1 = new Radio(20);
+        rad.setCurrentStation(0);
+        rad1.setSumStation(rad1.getSumStation());
+        rad1.previousStation();
         assertEquals(19, rad1.getCurrentStation());
     }
 
@@ -285,8 +282,9 @@ class RadioTest {
     void shouldPreviousStationAvr() { // можно парам
 
         Radio rad = new Radio();
+        rad.setCurrentStation(1);
         rad.setSumStation(rad.getSumStation());
-        rad.previousStation(1);
+        rad.previousStation();
 
         int expected = 0;
         int actual = rad.getCurrentStation();
@@ -294,8 +292,9 @@ class RadioTest {
         assertEquals(expected, actual);
 
         Radio rad1 = new Radio(20);
+        rad1.setCurrentStation(15);
         rad1.setSumStation(rad1.getSumStation());
-        rad1.previousStation(15);
+        rad1.previousStation();
         assertEquals(14, rad1.getCurrentStation());
     }
 
@@ -303,8 +302,9 @@ class RadioTest {
     void shouldPreviousStationMax() { // можно парам
 
         Radio rad = new Radio();
+        rad.setCurrentStation(9);
         rad.setSumStation(rad.getSumStation());
-        rad.previousStation(9);
+        rad.previousStation();
 
         int expected = 8;
         int actual = rad.getCurrentStation();
@@ -312,8 +312,9 @@ class RadioTest {
         assertEquals(expected, actual);
 
         Radio rad1 = new Radio(20);
+        rad1.setCurrentStation(19);
         rad1.setSumStation(rad1.getSumStation());
-        rad1.previousStation(19);
+        rad1.previousStation();
         assertEquals(18, rad1.getCurrentStation());
     }
 
@@ -321,7 +322,8 @@ class RadioTest {
     void shouldIncreaseVolumeMax() {
 
         Radio rad = new Radio();
-        rad.increaseVolume(100);
+        rad.setCurrentVolume(100);
+        rad.increaseVolume();
         int expected = 100;
         int actual = rad.getCurrentVolume();
 
@@ -332,7 +334,8 @@ class RadioTest {
     void shouldIncreaseVolume() {
 
         Radio rad = new Radio();
-        rad.increaseVolume(0);
+        rad.setCurrentVolume(0);
+        rad.increaseVolume();
         int expected = 1;
         int actual = rad.getCurrentVolume();
 
@@ -343,8 +346,21 @@ class RadioTest {
     void shouldIncreaseVolumeUnderLimit() {
 
         Radio rad = new Radio();
-        rad.increaseVolume(-2);
-        int expected = 0;
+        rad.setCurrentVolume(-2);
+        rad.increaseVolume();
+        int expected = 1;
+        int actual = rad.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldIncreaseVolumeMaxOverLimit() {
+
+        Radio rad = new Radio();
+        rad.setCurrentVolume(105);
+        rad.increaseVolume();
+        int expected = 1;
         int actual = rad.getCurrentVolume();
 
         assertEquals(expected, actual);
@@ -354,7 +370,8 @@ class RadioTest {
     void shouldDecreaseVolume() {
 
         Radio rad = new Radio();
-        rad.decreaseVolume(100);
+        rad.setCurrentVolume(100);
+        rad.decreaseVolume();
         int expected = 99;
         int actual = rad.getCurrentVolume();
 
@@ -365,7 +382,8 @@ class RadioTest {
     void shouldDecreaseVolumeMin() {
 
         Radio rad = new Radio();
-        rad.decreaseVolume(0);
+        rad.setCurrentVolume(0);
+        rad.decreaseVolume();
         int expected = 0;
         int actual = rad.getCurrentVolume();
 
@@ -376,7 +394,8 @@ class RadioTest {
     void shouldDecreaseVolumeOverLimit() {
 
         Radio rad = new Radio();
-        rad.decreaseVolume(101);
+        rad.setCurrentVolume(-2);
+        rad.decreaseVolume();
         int expected = 0;
         int actual = rad.getCurrentVolume();
 
