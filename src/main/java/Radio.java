@@ -13,12 +13,20 @@ public class Radio {
     @Setter
     private int sumStation;
 
-    public Radio (int sumStation) {
-
+    public Radio(int sumStation) {
+        this.sumStation = sumStation;
     }
 
     public int getSumStation() {
         return sumStation - 1;
+    }
+
+    public void setSumStation(int sumStation) {
+        this.sumStation = sumStation;
+    }
+
+    public int getCurrentStation() {
+        return currentStation;
     }
 
     public void setCurrentStation(int currentStation) {
@@ -56,6 +64,11 @@ public class Radio {
 
     }
 
+
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
     public void setCurrentVolume(int currentVolume) {
         if (currentVolume < 0) {
             return;
@@ -84,7 +97,6 @@ public class Radio {
         if (currentVolume <= 100) {
             this.currentVolume = currentVolume - 1;
         }
-
     }
 }
 
