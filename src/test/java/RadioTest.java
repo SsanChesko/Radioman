@@ -401,4 +401,15 @@ class RadioTest {
 
         assertEquals(expected, actual);
     }
-}
+
+    @Test
+    void shouldTestAllArgsConsCheckVolume() {
+
+        Radio rad = new Radio(2,45, 9);
+        rad.setCurrentStation(1);
+        rad.setCurrentVolume(55);
+
+        assertEquals(55, rad.getCurrentVolume());
+
+        }
+    }

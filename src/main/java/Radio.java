@@ -1,21 +1,17 @@
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 public class Radio {
-    @Getter
-    @Setter
     private int currentStation;
-    @Getter
-    @Setter
     private int currentVolume;
-    @Getter
-    @Setter
-    private int sumStation;
+    private int sumStation = 10;
 
     public Radio(int sumStation) {
         this.sumStation = sumStation;
     }
+
 
     public int getSumStation() {
         return sumStation - 1;
