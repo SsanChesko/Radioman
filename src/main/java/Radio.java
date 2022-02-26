@@ -17,13 +17,11 @@ public class Radio {
     }
 
     public void nextStation() {
-        if (currentStation < 9) {
-            this.currentStation = currentStation + 1;
-            return;
-        }
         if (currentStation == 9) {
             this.currentStation = 0;
+            return;
         }
+        this.currentStation = currentStation + 1;
     }
 
 
@@ -36,9 +34,7 @@ public class Radio {
             this.currentStation = 9;
             return;
         }
-        if (currentStation < 9) {
-            this.currentStation = currentStation - 1;
-        }
+        this.currentStation = currentStation - 1;
     }
 
 
@@ -70,10 +66,7 @@ public class Radio {
             this.currentVolume = 0;
             return;
         }
-        if (currentVolume <= 10) {
-            this.currentVolume = currentVolume - 1;
-        }
+        this.currentVolume = currentVolume - 1;
     }
 }
-
 
