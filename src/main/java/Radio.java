@@ -1,11 +1,16 @@
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 public class Radio {
+    @Getter
     private int currentStation;
+    @Getter
     private int currentVolume;
+    @Setter
     private int sumStation = 10;
 
     public Radio(int sumStation) {
@@ -17,13 +22,13 @@ public class Radio {
         return sumStation - 1;
     }
 
-    public void setSumStation(int sumStation) {
-        this.sumStation = sumStation;
-    }
+    // public void setSumStation(int sumStation) {
+    //   this.sumStation = sumStation;
+    //}
 
-    public int getCurrentStation() {
-        return currentStation;
-    }
+    // public int getCurrentStation() {
+    //   return currentStation;
+    //}
 
     public void setCurrentStation(int currentStation) {
         if (currentStation < 0) {
@@ -36,34 +41,30 @@ public class Radio {
     }
 
     public void nextStation() {
-        if (currentStation < sumStation) {
-            this.currentStation = currentStation + 1;
-            return;
-        }
         if (currentStation == sumStation) {
             this.currentStation = 0;
+            return;
         }
+        this.currentStation = currentStation + 1;
     }
+
 
     public void previousStation() {
         if (currentStation == 0) {
             this.currentStation = sumStation;
             return;
         }
-        if (currentStation < sumStation) {
+        if (currentStation == sumStation) {
             this.currentStation = currentStation - 1;
             return;
         }
-        if (currentStation == sumStation) {
-            this.currentStation = currentStation - 1;
-        }
-
+        this.currentStation = currentStation - 1;
     }
 
 
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
+    //public int getCurrentVolume() {
+    //  return currentVolume;
+    //}
 
     public void setCurrentVolume(int currentVolume) {
         if (currentVolume < 0) {
@@ -76,13 +77,11 @@ public class Radio {
     }
 
     public void increaseVolume() {
-        if (currentVolume < 100) {
-            this.currentVolume = currentVolume + 1;
-            return;
-        }
         if (currentVolume == 100) {
             this.currentVolume = 100;
+            return;
         }
+        this.currentVolume = currentVolume + 1;
     }
 
     public void decreaseVolume() {
@@ -90,9 +89,7 @@ public class Radio {
             this.currentVolume = 0;
             return;
         }
-        if (currentVolume <= 100) {
-            this.currentVolume = currentVolume - 1;
-        }
+        this.currentVolume = currentVolume - 1;
     }
 }
 
