@@ -33,13 +33,11 @@ public class Radio {
     }
 
     public void nextStation() {
-        if (currentStation < sumStation) {
-            this.currentStation = currentStation + 1;
-            return;
-        }
         if (currentStation == sumStation) {
             this.currentStation = 0;
+            return;
         }
+        this.currentStation = currentStation + 1;
     }
 
     public void previousStation() {
@@ -47,14 +45,11 @@ public class Radio {
             this.currentStation = sumStation;
             return;
         }
-        if (currentStation < sumStation) {
+        if (currentStation == sumStation) {
             this.currentStation = currentStation - 1;
             return;
         }
-        if (currentStation == sumStation) {
-            this.currentStation = currentStation - 1;
-        }
-
+        this.currentStation = currentStation - 1;
     }
 
 
@@ -73,13 +68,11 @@ public class Radio {
     }
 
     public void increaseVolume() {
-        if (currentVolume < 100) {
-            this.currentVolume = currentVolume + 1;
-            return;
-        }
         if (currentVolume == 100) {
             this.currentVolume = 100;
+            return;
         }
+        this.currentVolume = currentVolume + 1;
     }
 
     public void decreaseVolume() {
@@ -87,9 +80,7 @@ public class Radio {
             this.currentVolume = 0;
             return;
         }
-        if (currentVolume <= 100) {
-            this.currentVolume = currentVolume - 1;
-        }
+        this.currentVolume = currentVolume - 1;
     }
 }
 
